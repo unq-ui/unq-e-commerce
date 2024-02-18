@@ -51,16 +51,18 @@ fun addCategory(draftCategory: DraftCategory): Category
 // @Throw EcommerceException si existe una categoria ya definida con el mismo nombre
 fun modifyCategory(elementId: String, draftCategory: DraftCategory)
 
-fun removeCategory(elementId: String)
-
 fun getAllCategories(): List<Category> = categories.toList()
 
 // @Throw EcommerceException si existe un producto ya definido con el mismo nombre
 fun addProduct(draftProduct: DraftProduct): Product 
 
 // @Throw EcommerceException si el productId no existe
+// @Throw EcommerceException si existe un producto ya definido con el mismo nombre
+// @Throw EcommerceException si el usuario intenta modificar un producto que no le corresponde
 fun modifyProduct(draftProduct: DraftProduct, productId: String)
 
+// @Throw EcommerceException si el productId no existe
+// @Throw EcommerceException si el usuario intenta eliminar un producto que no le corresponde
 fun removeProduct(productId: String) 
 
 fun getAllProducts(): List<Product> = products.toList()
@@ -68,14 +70,22 @@ fun getAllProducts(): List<Product> = products.toList()
 // @Throw EcommerceException si no existe un producto con el id proporcionado
 fun getProduct(productId: String): Product 
 
+fun getProductsByCategory(categoryId: String): List<Product>
+
+fun getProductsByUser(userId: String): List<Product>
+
 // @Throw EcommerceException si no existe un producto con el id proporcionado o un usuario con el id proporcionado
+// @Throw EcommerceException si el usuario compra uno de sus propios productos
 fun purchaseProduct(userId: String, draftPurchase: DraftPurchase): User
 
-// Devuelve las categorias que incluyan la phrase enviada o productos que tengan esa phrase en su nombre o descripcion 
+// Devuelve las categorias que incluyan la phrase enviada o productos que tengan esa phrase en su nombre o descripcion, insensitivo.
 fun search(phrase: List<Element>): List<Any>
 
 // @Throw UserException si el username esta usado
 fun addUser(drafUser: DraftUser): User
+
+// @Throw UserException si id no existe
+fun getUser(userId: String): User
 
 ```
 

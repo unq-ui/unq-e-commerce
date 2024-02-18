@@ -8,17 +8,15 @@ class DraftUser(
     var image: String
 )
 
-class DraftCategory(
-    var name: String,
-    var id: Number
-)
+class DraftCategory(var name: String)
 
 class DraftProduct(
     val name: String,
     val description: String,
     val image: String,
-    val category: String,
-    val price: Number
+    val categoryId: String,
+    val price: Number,
+    val userId: String,
 )
 class DraftPurchase(
     val productId: String,

@@ -5,21 +5,22 @@ class Product (
     var name: String,
     var description: String,
     var image: String,
-    var category: String,
-    var price: Number
+    var categoryId: String,
+    var price: Number,
+    val user: MinifiedUser
 )
 
 class Category(val id: String, var name: String)
-
-class MinifiedUser (
-    val id: String,
-    val username: String,
-    val image: String
-)
 class User(
     val id: String,
     val username: String,
     val password: String,
     val image: String,
     val boughtProducts: MutableList<Product>
+)
+
+class MinifiedUser (
+    val id: String,
+    val username: String,
+    val image: String
 )
