@@ -43,7 +43,7 @@ val users: MutableList<User>
 
 fun getAllCategories(): List<Category>
 
-fun getAllProducts(): List<Product>
+fun getAllAvailableProducts(): List<Product>
 
 // @Throw EcommerceException si existe una categoria con el mismo nombre
 fun addCategory(draftCategory: DraftCategory): Category
@@ -67,6 +67,9 @@ fun getAllProducts(): List<Product> = products.toList()
 
 // @Throw EcommerceException si no existe un producto con el id proporcionado
 fun getProduct(productId: String): Product 
+
+// @Throw EcommerceException si no existe un producto con el id proporcionado o un usuario con el id proporcionado
+fun purchaseProduct(userId: String, draftPurchase: DraftPurchase): User
 
 // Devuelve las categorias que incluyan la phrase enviada o productos que tengan esa phrase en su nombre o descripcion 
 fun search(phrase: List<Element>): List<Any>

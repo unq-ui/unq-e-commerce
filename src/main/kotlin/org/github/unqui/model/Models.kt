@@ -20,5 +20,6 @@ class User(
     val id: String,
     val username: String,
     val password: String,
-    val image: String
+    val image: String,
+    val boughtProducts: MutableList<Product>
 )

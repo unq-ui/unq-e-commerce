@@ -1,5 +1,7 @@
 package org.github.unqui.model
 
+import java.time.LocalDate
+
 class DraftUser(
     var username: String,
     var password: String,
@@ -18,3 +20,14 @@ class DraftProduct(
     val category: String,
     val price: Number
 )
+class DraftPurchase(
+    val productId: String,
+    val card: CardInfo,
+)
+class CardInfo(
+    val cardHolderName: String,
+    val number: Number,
+    val expirationDate: LocalDate,
+    val cvv: Number
+)
+

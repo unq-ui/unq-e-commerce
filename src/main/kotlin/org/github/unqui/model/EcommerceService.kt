@@ -57,7 +57,7 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         products.removeIf { it.id == productId }
     }
 
-    fun getAllProducts(): List<Product> = products.toList()
+    fun getAllAvailableProducts(): List<Product> = products.toList()
 
     fun getProduct(productId: String): Product {
         return products.find { it.id == productId } ?: throw EcommerceException("Product not found")
@@ -66,7 +66,7 @@ class EcommerceService (private val products: MutableList<Product>, private val 
     // USERS
     fun addUser(newUser: DraftUser): User {
         if (users.any { it.username == newUser.username }) throw UserException("Username already defined")
-        val user = User(idGenerator.getUserId(), newUser.username, newUser.password, newUser.image)
+        val user = User(idGenerator.getUserId(), newUser.username, newUser.password, newUser.image , mutableListOf())
         users.add(user)
         return user
     }
@@ -77,5 +77,14 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         val productsRes =  products.filter { it.description.lowercase().contains(phrase) || it.name.lowercase().contains(phrase) }
         val categoriesRes = categories.filter { it.name.lowercase().contains(phrase)}
         return productsRes + categoriesRes
+    }
+
+    fun purchaseProduct(userId: String, draftPurchase: DraftPurchase): User {
+        val user = users.find{it.id === userId}
+        val product = products.find{it.id === draftPurchase.productId}
+        if (user === null || product === null) throw EcommerceException("Los datos de compra son incorrectos")
+        user.boughtProducts.add(product)
+        products.remove(product)
+        return user
     }
 }
