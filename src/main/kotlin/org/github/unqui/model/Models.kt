@@ -16,7 +16,6 @@ class MinifiedUser (
     val username: String,
     val image: String
 )
-
 class User(
     val id: String,
     val username: String,

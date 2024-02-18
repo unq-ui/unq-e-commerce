@@ -24,7 +24,7 @@ class EcommerceService (private val products: MutableList<Product>, private val 
 
     fun getAllCategories(): List<Category> = categories.toList()
 
-    fun getCategory(elementId: String): Category {
+    private fun getCategory(elementId: String): Category {
         return categories.find { it.id == elementId } ?: throw EcommerceException("Category not found")
     }
 
@@ -43,8 +43,8 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         return element
     }
 
-    fun modifyProduct(draftProduct: DraftProduct, id: String) {
-        val element = this.getProduct(id)
+    fun modifyProduct(draftProduct: DraftProduct, productId: String) {
+        val element = this.getProduct(productId)
         if (element === null) throw EcommerceException("Product not defined")
         element.name = draftProduct.name
         element.description = draftProduct.description
@@ -72,10 +72,10 @@ class EcommerceService (private val products: MutableList<Product>, private val 
     }
 
     // SEARCH
-    fun search(searchWords: String): List<Any> {
-        val search = searchWords.lowercase()
-        val productsRes =  products.filter { it.description.lowercase().contains(searchWords) || it.name.lowercase().contains(searchWords) }
-        val categoriesRes = categories.filter { it.name.lowercase().contains(searchWords)}
+    fun search(phrase: String): List<Any> {
+        val search = phrase.lowercase()
+        val productsRes =  products.filter { it.description.lowercase().contains(phrase) || it.name.lowercase().contains(phrase) }
+        val categoriesRes = categories.filter { it.name.lowercase().contains(phrase)}
         return productsRes + categoriesRes
     }
 }
