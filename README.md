@@ -24,7 +24,7 @@ Agregar la dependencia:
 <dependency>
     <groupId>org.github.unqui</groupId>
     <artifactId>unq-e-commerce</artifactId>
-    <version>v1.0.1</version>
+    <version>v1.0.2</version>
 </dependency>
 ```
 
