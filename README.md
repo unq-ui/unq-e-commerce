@@ -87,6 +87,11 @@ fun addUser(drafUser: DraftUser): User
 // @Throw UserException si id no existe
 fun getUser(userId: String): User
 
+// @Throw UserException si la combinacion no existe
+fun login(username: String, password: String): User {
+    return users.find { it.username == username && it.password === password } ?: throw UserException("Login Error")
+}
+
 ```
 
 ### Product

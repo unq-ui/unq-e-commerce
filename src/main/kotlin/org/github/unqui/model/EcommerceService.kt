@@ -103,4 +103,8 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         val product = products.find{it.id === purchase.productId}
         products.remove(product)
     }
+
+    fun login(username: String, password: String): User {
+        return users.find { it.username == username && it.password === password } ?: throw UserException("Login Error")
+    }
 }
