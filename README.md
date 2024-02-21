@@ -97,8 +97,9 @@ class Product (
     var name: String,
     var description: String,
     var image: String,
-    var category: String,
-    var price: Number
+    var categoryId: String,
+    var price: Number,
+    val user: MinifiedUser
 )
 ```
 
@@ -115,7 +116,26 @@ class User(
     val id: String,
     val username: String,
     val password: String,
+    val image: String,
+    val boughtProducts: MutableList<Product>
+)
+```
+
+### MinifiedUser
+
+```kotlin
+class MinifiedUser (
+    val id: String,
+    val username: String,
     val image: String
+)
+```
+
+### Purchase
+```kotlin
+class Purchase(
+    val productId: String,
+    val card: CardInfo,
 )
 ```
 
@@ -125,10 +145,7 @@ class User(
 Es la representación de una `Category` antes de ser guardada por el sistema
 
 ```kotlin
-class DraftCategory(
-    var name: String,
-    var id: Number
-)
+class DraftCategory(var name: String)
 ```
 
 ### DraftProduct
@@ -140,8 +157,9 @@ class DraftProduct(
     val name: String,
     val description: String,
     val image: String,
-    val category: String,
-    val price: Number
+    val categoryId: String,
+    val price: Number,
+    val userId: String,
 )
 ```
 

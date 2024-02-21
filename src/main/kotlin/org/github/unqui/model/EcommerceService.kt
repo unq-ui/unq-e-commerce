@@ -42,16 +42,17 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         return element
     }
 
-    fun modifyProduct(draftProduct: DraftProduct, productId: String, userId: String) {
+    fun modifyProduct(draftProduct: DraftProduct, productId: String, userId: String): Product {
         val product = this.getProduct(productId)
         if (product === null) throw EcommerceException("Product not defined")
-        if (product.user.id != null) throw EcommerceException("You are not authorized to modify this product")
+        if (product.user.id != userId) throw EcommerceException("You cannot modify this product")
         if (products.any { it.name == draftProduct.name }) throw EcommerceException("Already exists another product with this name")
         product.name = draftProduct.name
         product.description = draftProduct.description
         product.image = draftProduct.image
         product.categoryId = draftProduct.categoryId
         product.price = draftProduct.price
+        return product
     }
 
     fun removeProduct(productId: String, userId: String) {
@@ -93,15 +94,14 @@ class EcommerceService (private val products: MutableList<Product>, private val 
 
     // SEARCH
     fun search(phrase: String): List<Any> {
-        val search = phrase.lowercase()
-        val productsRes =  products.filter { it.description.lowercase().contains(phrase) || it.name.lowercase().contains(phrase) }
-        val categoriesRes = categories.filter { it.name.lowercase().contains(phrase)}
-        return productsRes + categoriesRes
+        val searchPhrase = phrase.lowercase()
+        val productsRes =  products.filter { it.description.lowercase().contains(searchPhrase) || it.name.lowercase().contains(searchPhrase) }
+        return productsRes
     }
 
-    fun purchaseProduct(userId: String, draftPurchase: DraftPurchase): User {
+    fun purchaseProduct(userId: String, purchase: Purchase): User {
         val user = users.find{it.id === userId}
-        val product = products.find{it.id === draftPurchase.productId}
+        val product = products.find{it.id === purchase.productId}
         if (user === null || product === null) throw EcommerceException("Purchase Data is incorrect")
         if (user.id == product.user.id) throw EcommerceException("You cannot purchase your own stuff")
         user.boughtProducts.add(product)
