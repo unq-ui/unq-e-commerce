@@ -99,13 +99,8 @@ class EcommerceService (private val products: MutableList<Product>, private val 
         return productsRes
     }
 
-    fun purchaseProduct(userId: String, purchase: Purchase): User {
-        val user = users.find{it.id === userId}
+    fun purchaseProduct(purchase: Purchase) {
         val product = products.find{it.id === purchase.productId}
-        if (user === null || product === null) throw EcommerceException("Purchase Data is incorrect")
-        if (user.id == product.user.id) throw EcommerceException("You cannot purchase your own stuff")
-        user.boughtProducts.add(product)
         products.remove(product)
-        return user
     }
 }
